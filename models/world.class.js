@@ -56,33 +56,22 @@ class World {
       }); 
    }
 
-   addToMap(mo) {
-      if (mo.otherDirection) {
-         this.ctx.save(); // Speichert den aktuellen Zustand des Canvas-Kontexts
-         this.ctx.translate(mo.width, 0); // Verschiebt den Ursprung des Canvas-Kontexts nach rechts um die Breite des Bildes
-         this.ctx.scale(-1, 1); // Spiegelt den Canvas-Kontext horizontal
-         mo.x = mo.x * -1; // Invertiert die x-Koordinate des Objekts
+   addToMap(mo){
+  
+      
+      if(mo.otherDirection){
+         this.ctx.save();
+         this.ctx.translate(mo.width, 0);
+         this.ctx.scale(-1,1)
+         mo.x = mo.x * -1;
       }
-   
-      // Zeichnet das Bild des Objekts auf dem Canvas
+
       this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
-   
-      if (mo.otherDirection) {
-         mo.x = mo.x * -1; // Stellt die ursprüngliche x-Koordinate des Objekts wieder her
-   
-         // Zeichne etwas zur Visualisierung vor restore
-         this.ctx.fillStyle = 'red';
-         this.ctx.fillRect(0, 0, 10, 10);
-   
-         // Verzögerung einfügen, um den Zustand vor restore länger sichtbar zu machen
-         setTimeout(() => {
-            this.ctx.restore(); // Stellt den gespeicherten Zustand des Canvas-Kontexts wieder her
-   
-            // Zeichne etwas zur Visualisierung nach restore
-            this.ctx.fillStyle = 'blue';
-            this.ctx.fillRect(20, 0, 10, 10);
-         }, 3000); // Verzögerung von 100 Millisekunden
+
+     
+      if (mo.otherDirection){
+         mo.x = mo.x * -1;
+         this.ctx.restore();
       }
    }
 }
-   
