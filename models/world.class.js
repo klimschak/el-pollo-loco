@@ -1,68 +1,70 @@
 class World {
-   character = new Character();
-   enemies = level1.enemies;
-   clouds = level1.clouds; 
-   backgroundObjects = level1.backgroundObjects;
-   canvas;
+
+   level = level1;
+
+   character = new Character(); // Ändern zu einer einzelnen Instanz
+
    ctx;
-   keyboard;
-   camera_x = 0;
+   canvas;
+   keyboard; 
+   scroll_x;
 
-
-
-   constructor(canvas, keyboard){
-      this.ctx= canvas.getContext('2d');
+   constructor(canvas, keyboard) {
+      this.ctx = canvas.getContext('2d');
       this.canvas = canvas;
       this.keyboard = keyboard;
-      this.draw();
       this.setWorld();
+      this.draw();
    }
 
-   setWorld(){
+   setWorld() {
       this.character.world = this;
    }
 
    draw() {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-      this.ctx.translate(this.camera_x, 0);
-      
-      this.addObjectsToMap(this.backgroundObjects);
-      this.addObjectsToMap(this.clouds);
-      this.addObjectsToMap(this.enemies);
-      this.addToMap(this.character);
+      this.ctx.translate(this.scroll_x, 0);
 
-      this.ctx.translate(-this.camera_x, 0);
+      this.addObjectsToMap(this.level.backgroundObjects);
+      this.addObjectsToMap(this.level.clouds);  
+      this.addObjectsToMap(this.level.enemies);
+      this.addToMap(this.character); // Anpassen, um die Charakterinstanz zu zeichnen
 
-      let self = this;
-      requestAnimationFrame(function () {
+      this.ctx.translate(-this.scroll_x, 0);
+
+      let self = this; 
+      requestAnimationFrame(function() {
          self.draw();
-         
       });
    }
 
-   addObjectsToMap(objects){
-      objects.forEach(o => {
-         this.addToMap(o);
-      }); 
+   addObjectsToMap(objects) {
+      objects.forEach(object => {
+         this.addToMap(object);
+      });
    }
 
-   addToMap(mo){
-  
-      
-      if(mo.otherDirection){
-         this.ctx.save();
-         this.ctx.translate(mo.width, 0);
-         this.ctx.scale(-1,1)
-         mo.x = mo.x * -1;
+   addToMap(movObj) {
+      if (movObj.mirrored) {
+         this.mirrorImage(movObj)
       }
+      movObj.draw(this.ctx);
+      movObj.drawFrame(this.ctx);
 
-      this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
 
-     
-      if (mo.otherDirection){
-         mo.x = mo.x * -1;
-         this.ctx.restore();
-      }
+      if (movObj.mirrored) {
+         this.mirrorImageBack(movObj)
+      };
+   }
+   mirrorImage(movObj){
+      this.ctx.save();
+      this.ctx.translate(movObj.width, 0);
+      this.ctx.scale(-1,1);
+      movObj.x = movObj.x * -1;
+   }
+   mirrorImageBack(movObj){
+      movObj.x = movObj.x * -1;
+      this.ctx.restore();
    }
 }

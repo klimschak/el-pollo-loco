@@ -3,49 +3,57 @@ let world;
 let keyboard = new Keyboard();
 
 
-function initPollo() {
-   canvas = document.getElementById("canvas");
-   world = new World(canvas, keyboard);
- 
-   console.log('My character is', world.character)
-   console.log('My enemy is', world.enemies)
+function init() {
+    canvas = document.getElementById('canvas');
+    world = new World(canvas, keyboard);
 
-}
+    console.log('My Character is', world.character)
+} 
 
-window.addEventListener('keydown', (e) => {
-   if (e.code === 'ArrowRight') {
-       keyboard.RIGHT = true;
-   }
-   if (e.code === 'ArrowLeft') {
-       keyboard.LEFT = true;
-   }
-   if (e.code === 'ArrowUp') {
-       keyboard.UP = true;
-   }
-   if (e.code === 'ArrowDown') {
-       keyboard.DOWN = true;
-   }
-   if (e.code === 'Space') {
-       keyboard.SPACE = true;
-   }
+window.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowRight') { 
+        console.log(event);
+        keyboard.RIGHT = true;
+        console.log(keyboard.RIGHT);
+    }
+    if (event.key === 'ArrowLeft') {
+        console.log(event);
+        keyboard.LEFT = true;
+    }
+    if (event.key === 'ArrowUp') {
+        console.log(event);
+        keyboard.UP = true;
+    }
+    if (event.key === 'ArrowDown') {
+        console.log(event);
+        keyboard.Down = true;
+    }
+    if (event.code === 'Space') {
+        console.log(event);
+        keyboard.SPACE = true;
+    }
+}); 
 
-});
-
-window.addEventListener('keyup', (e) => {
-   if (e.code === 'ArrowRight') {
-       keyboard.RIGHT = false;
-   }
-   if (e.code === 'ArrowLeft') {
-       keyboard.LEFT = false;
-   }
-   if (e.code === 'ArrowUp') {
-       keyboard.UP = false;
-   }
-   if (e.code === 'ArrowDown') {
-       keyboard.DOWN = false;
-   }
-   if (e.code === 'Space') {
-       keyboard.SPACE = false;
-   }
-
+window.addEventListener('keyup', (event) => {
+    if (event.key === 'ArrowRight') { 
+        console.log(event);
+        keyboard.RIGHT = false;
+        console.log(keyboard.RIGHT);
+    }
+    if (event.key === 'ArrowLeft') {
+        console.log(event);
+        keyboard.LEFT = false;
+    }
+    if (event.key === 'ArrowUp') {
+        console.log(event);
+        keyboard.UP = false;
+    }
+    if (event.key === 'ArrowDown') {
+        console.log(event);
+        keyboard.DOWN = false;
+    }
+    if (event.code === 'Space') {
+        console.log(event);
+        keyboard.SPACE = false;
+    }
 });
