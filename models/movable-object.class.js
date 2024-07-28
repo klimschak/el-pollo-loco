@@ -16,23 +16,24 @@ class MovableObject extends DrawableObject {
    };
 
    isAboveGround() {
-      if (this instanceof ThrowableObject)
-      return true;
+      if (this instanceof ThrowableObject) {
+         return true
+      }
       else {
          return this.y < 150;
       }
-   }  ;
+   };
 
    jump() {
       this.speedY = 30;
    };
 
 
-   isColliding(movObj){
+   isColliding(movObj) {
       return this.x + this.width > movObj.x &&
-      this.y + this.height > movObj.y &&
-      this.x < movObj.x &&
-      this.y < movObj.y + movObj.height;
+         this.y + this.height > movObj.y &&
+         this.x < movObj.x &&
+         this.y < movObj.y + movObj.height;
    };
 
    hit() {
@@ -45,13 +46,13 @@ class MovableObject extends DrawableObject {
       }
    }
 
-   isHurt(){
+   isHurt() {
       let timepassed = new Date().getTime() - this.lastHit;
       timepassed = timepassed / 1000;
       return timepassed < 1;
    }
 
-   isDead (){
+   isDead() {
       return this.energy <= 0;
    }
 
